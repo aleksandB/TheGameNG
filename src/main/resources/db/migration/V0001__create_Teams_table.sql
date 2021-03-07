@@ -1,0 +1,12 @@
+CREATE TABLE IF NOT EXISTS teams (id INT PRIMARY KEY AUTO_INCREMENT,
+                    team_name VARCHAR(200),
+                     team_play_zone VARCHAR(50),
+                      team_rank DOUBLE,
+                       championships INT,
+                       gold_medal INT,
+                        silver_medal INT,
+                         bronze_medal INT,
+                          force_goal DOUBLE,
+                           force_def DOUBLE,
+                     force_demi DOUBLE,
+                      force_att DOUBLE) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
