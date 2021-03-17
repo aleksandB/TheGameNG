@@ -22,7 +22,7 @@ public class TeamsController {
     TeamsRepository teamsRepository;
 
 
-    @GetMapping("/index")
+    @GetMapping("/")
     public String showUserList(Model model) {
         List<Team> teamList = new ArrayList<>();
         teamsRepository.findAll().forEach(teamList::add);
