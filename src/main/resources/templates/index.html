@@ -11,8 +11,8 @@
 </head>
 <body>
 <div th:switch="${teams}" class="container my-5">
-    <div class="row">
-        <div class="col-md-6">
+    <div class="row justify-content-md-center">
+        <div class="col-md">
             <h2 th:case="null">No teams yet!</h2>
             <div th:case="*">
                 <h2 class="my-5">Teams</h2>
@@ -42,6 +42,19 @@
                 </table>
             </div>
         </div>
+    </div>
+    <div class="row">
+        <form method="post" enctype="multipart/form-data">
+            <div>
+                <label for="file_excel">Choose file to upload</label>
+                <input type="file" id="file_excel" name="file_excel"
+                       accept=".xls, .xlsx">
+            </div>
+            <div>
+                <button>Upload</button>
+            </div>
+
+        </form>
     </div>
 </div>
 </body>
