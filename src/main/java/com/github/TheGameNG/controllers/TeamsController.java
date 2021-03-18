@@ -1,14 +1,22 @@
 package com.github.TheGameNG.controllers;
 
+import antlr.StringUtils;
 import com.github.TheGameNG.entities.Team;
+import com.github.TheGameNG.functions.ReadWriteExcel;
 import com.github.TheGameNG.repositories.TeamsRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
+
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +29,6 @@ public class TeamsController {
     @Autowired
     TeamsRepository teamsRepository;
 
-
     @GetMapping("/")
     public String showUserList(Model model) {
         List<Team> teamList = new ArrayList<>();
@@ -30,21 +37,34 @@ public class TeamsController {
         log.info("size = " + teamList.size());
         return "index";
     }
+
+    @PostMapping("/addteams")
+    public String uploadFile(@RequestParam("file") MultipartFile file, RedirectAttributes attributes) {
+
+        //check if file is empty
+        if (file.isEmpty()) {
+            attributes.addFlashAttribute("message", "Please select a file to upload");
+            return "redirect:/";
+        }
+
+        log.info(file.getOriginalFilename());
+        ReadWriteExcel readWriteExcel = new ReadWriteExcel();
+        readWriteExcel.convertMultipart(file);
+        readWriteExcel.testPrint(readWriteExcel.ReadExcelFileTeams());
+        attributes.addFlashAttribute("message","You successfully uploaded file");
+
+        return "redirect:/";
+    }
+
+
+
+
 /*
     @GetMapping("/signup")
     public String showSignUpForm(Team team) {
         return "add-user";
     }
 
-    @PostMapping("/adduser")
-    public String addUser(@Valid Team team, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            return "add-user";
-        }
-
-        teamsRepository.save(team);
-        return "redirect:/index";
-    }
 
     @GetMapping("/edit/{id}")
     public String showUpdateForm(@PathVariable("id") long id, Model model) {

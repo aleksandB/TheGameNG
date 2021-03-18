@@ -3,11 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Users</title>
+    <title>Teams</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/shards.min.css">
+    <link rel="stylesheet" href="G:\sr01001\java\TheGameNG\src\main\resources\css\shards.min.css">
 </head>
 <body>
 <div th:switch="${teams}" class="container my-5">
@@ -44,14 +44,14 @@
         </div>
     </div>
     <div class="row">
-        <form method="post" enctype="multipart/form-data">
-            <div>
-                <label for="file_excel">Choose file to upload</label>
-                <input type="file" id="file_excel" name="file_excel"
-                       accept=".xls, .xlsx">
+        <p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p>
+        <form method="post" th:action="@{/addteams}" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="file">Choose file to upload</label>
+                <input type="file" id="file" name="file" class="form-control-file">
             </div>
             <div>
-                <button>Upload</button>
+                <button type="submit" class="btn btn-primary">Upload file</button>
             </div>
 
         </form>
