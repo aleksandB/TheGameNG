@@ -1,7 +1,11 @@
 package com.github.TheGameNG.entities;
 
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
+import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 
 
 import javax.persistence.*;
@@ -11,6 +15,7 @@ import javax.persistence.*;
 //                     forceDEMI DOUBLE, forceATT DOUBLE);
 
 @Data
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 @Entity
 @Table(name = "teams")
 public class Team {
@@ -57,3 +62,5 @@ public class Team {
     }
 
 }
+
+
