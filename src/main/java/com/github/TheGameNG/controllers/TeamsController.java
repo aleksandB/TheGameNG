@@ -12,9 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -40,7 +38,7 @@ public class TeamsController {
 
     @PostMapping("/addteams")
     public String uploadFile(@RequestParam("file") MultipartFile file, RedirectAttributes attributes) {
-
+        List<Team> teamList = new ArrayList<>();
         //check if file is empty
         if (file.isEmpty()) {
             attributes.addFlashAttribute("message", "Please select a file to upload");
@@ -51,12 +49,26 @@ public class TeamsController {
         ReadWriteExcel readWriteExcel = new ReadWriteExcel();
         readWriteExcel.convertMultipart(file);
         readWriteExcel.testPrint(readWriteExcel.ReadExcelFileTeams());
+        teamList = readWriteExcel.ReadExcelFileTeams();
+        for(Team team : teamList){
+            teamsRepository.save(team);
+        }
+
         attributes.addFlashAttribute("message","You successfully uploaded file");
 
         return "redirect:/";
     }
 
+    @GetMapping("/delete")
+    public String deleteTeam(Model model) {
+        List<Team> teamList = new ArrayList<>();
+        teamsRepository.findAll().forEach(teamList::add);
 
+        for (Team team : teamList){
+            teamsRepository.delete(team);
+        }
+        return "redirect:/";
+    }
 
 
 /*
@@ -86,13 +98,7 @@ public class TeamsController {
         return "redirect:/index";
     }
 
-    @GetMapping("/delete/{id}")
-    public String deleteTeam(@PathVariable("id") long id, Model model) {
-        Team team = teamsRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-        teamsRepository.delete(team);
 
-        return "redirect:/index";
-    }
 
 */
 }
