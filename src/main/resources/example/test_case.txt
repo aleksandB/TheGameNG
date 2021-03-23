@@ -1,0 +1,45 @@
+/file confirm-overwrite? no
+
+sync-chdir e:\usr\sr01001\Projects\test_fluent\results\cas1\
+
+/define/materials/change-create/water-liquid/water-liquid no no no yes constant 0.001 no no no
+
+/solve/initialize/hyb-initialization
+
+/solve/set/pseudo-transient yes yes 1 0.1 1
+/solve/iterate 20
+/solve/set/pseudo-transient yes yes 1 0.25 1
+/solve/iterate 1 ok 20
+/solve/set/pseudo-transient yes yes 1 0.5 1
+/solve/iterate 1 ok 20
+
+/file/write-case-data absolute_path\cas1_1.cas
+/file/export-to-cfd-post/cas1_1 () * () pressure absolute-pressure total-pressure density density-all velocity-magnitude x-velocity y-velocity z-velocity temperature total-temperature q no yes no
+
+/define/materials/change-create/water-liquid/water-liquid no no no yes constant 0.002 no no no
+
+/solve/initialize/hyb-initialization
+
+/solve/set/pseudo-transient yes yes 1 0.1 1
+/solve/iterate 20
+/solve/set/pseudo-transient yes yes 1 0.25 1
+/solve/iterate 1 ok 20
+/solve/set/pseudo-transient yes yes 1 0.5 1
+/solve/iterate 1 ok 20
+
+/file/write-case-data absolute_path\cas1_2.cas
+/file/export-to-cfd-post/cas1_2 () * () pressure absolute-pressure total-pressure density density-all velocity-magnitude x-velocity y-velocity z-velocity temperature total-temperature q no yes no
+
+/define/materials/change-create/water-liquid/water-liquid no no no yes constant 0.1 no no no
+
+/solve/initialize/hyb-initialization
+
+/solve/set/pseudo-transient yes yes 1 0.1 1
+/solve/iterate 20
+/solve/set/pseudo-transient yes yes 1 0.25 1
+/solve/iterate 1 ok 20
+/solve/set/pseudo-transient yes yes 1 0.5 1
+/solve/iterate 1 ok 20
+
+/file/write-case-data absolute_path\cas1_3.cas
+/file/export-to-cfd-post/cas1_3 () * () pressure absolute-pressure total-pressure density density-all velocity-magnitude x-velocity y-velocity z-velocity temperature total-temperature q no yes no
