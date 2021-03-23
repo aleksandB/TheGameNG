@@ -18,7 +18,7 @@ import java.util.List;
 public class ReadWriteExcel {
 
     private static final Logger log = LoggerFactory.getLogger(ReadWriteExcel.class);
-    private static final String PATH_FILE = "G:\\sr01001\\java\\TheGameNG\\src\\main\\resources\\example\\temp.xlsx";
+    private static final String PATH_FILE = "E:\\work\\TheGameNG\\src\\main\\resources\\example\\temp.xlsx";
 
     public List<Team> ReadExcelFileTeams(){
         List<Team> allTeams = new ArrayList<>();
@@ -50,7 +50,7 @@ public class ReadWriteExcel {
 
     public void convertMultipart(MultipartFile multipartFile){
          try{
-            multipartFile.transferTo(new File("G:\\sr01001\\java\\TheGameNG\\src\\main\\resources\\example\\temp.xlsx"));
+            multipartFile.transferTo(new File(PATH_FILE));
         }catch (FileNotFoundException e){
             log.error("File not found exception");
         }catch (IOException e){
