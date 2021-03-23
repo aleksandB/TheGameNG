@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-    <link rel="stylesheet" href="G:\sr01001\java\TheGameNG\src\main\resources\css\shards.min.css">
+    <link rel="stylesheet" href="E:\work\TheGameNG\src\main\resources\css\shards.min.css">
 </head>
 <body>
 <div th:switch="${teams}" class="container my-5">
@@ -45,16 +45,20 @@
     </div>
     <div class="row">
         <p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p>
-        <form method="post" th:action="@{/addteams}" enctype="multipart/form-data">
+        <form action="#" class="form" method="post" th:action="@{/addteams}" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="file">Choose file to upload</label>
                 <input type="file" id="file" name="file" class="form-control-file">
             </div>
+            <div class="btn-group" role="group" aria-label="Basic example">
             <div>
-                <button type="submit" class="btn btn-primary">Upload file</button>
+                <button type="submit" class="btn btn-primary" value="delete" th:formaction="'/delete'" th:formmethod="get" >Delete data</button>
+                <button type="submit" class="btn btn-primary" value="upload">Upload file</button>
+                <button type="submit" class="btn btn-primary" value="read">Read new data</button>
             </div>
-
+            </div>
         </form>
+
     </div>
 </div>
 </body>
