@@ -1,6 +1,5 @@
 package com.github.TheGameNG.controllers;
 
-import antlr.StringUtils;
 import com.github.TheGameNG.entities.Team;
 import com.github.TheGameNG.functions.ReadWriteExcel;
 import com.github.TheGameNG.repositories.TeamsRepository;
@@ -16,8 +15,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Controller
 public class TeamsController {
@@ -38,7 +41,7 @@ public class TeamsController {
 
     @PostMapping("/addteams")
     public String uploadFile(@RequestParam("file") MultipartFile file, RedirectAttributes attributes) {
-        List<Team> teamList = new ArrayList<>();
+        List<Team> teamList ;
         //check if file is empty
         if (file.isEmpty()) {
             attributes.addFlashAttribute("message", "Please select a file to upload");
@@ -60,10 +63,9 @@ public class TeamsController {
     }
 
     @GetMapping("/delete")
-    public String deleteTeam(Model model) {
+    public String deleteTeams(Model model) {
         List<Team> teamList = new ArrayList<>();
         teamsRepository.findAll().forEach(teamList::add);
-
         for (Team team : teamList){
             teamsRepository.delete(team);
         }
@@ -71,12 +73,22 @@ public class TeamsController {
     }
 
 
-/*
-    @GetMapping("/signup")
-    public String showSignUpForm(Team team) {
-        return "add-user";
-    }
 
+    @PostMapping("/setrank")
+    public String setInitialRanking() {
+
+        for(Team team : teamsRepository.findAll()){
+            team.setTeamRank(new BigDecimal(ThreadLocalRandom.current().nextDouble(0.0,200.0)).setScale(3, RoundingMode.HALF_UP).doubleValue());
+            team.setForceAtt(new BigDecimal(ThreadLocalRandom.current().nextDouble(0.0,1.0)).setScale(3, RoundingMode.HALF_UP).doubleValue());
+            team.setForceDef(new BigDecimal(ThreadLocalRandom.current().nextDouble(0.0,1.0)).setScale(3, RoundingMode.HALF_UP).doubleValue());
+            team.setForceDemi(new BigDecimal(ThreadLocalRandom.current().nextDouble(0.0,1.0)).setScale(3, RoundingMode.HALF_UP).doubleValue());
+            team.setForceGoal(new BigDecimal(ThreadLocalRandom.current().nextDouble(0.0,1.0)).setScale(3, RoundingMode.HALF_UP).doubleValue());
+            teamsRepository.save(team);
+        }
+
+        return "redirect:/";
+    }
+/*
 
     @GetMapping("/edit/{id}")
     public String showUpdateForm(@PathVariable("id") long id, Model model) {

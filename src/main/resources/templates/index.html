@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-    <link rel="stylesheet" href="E:\work\TheGameNG\src\main\resources\css\shards.min.css">
+    <link rel="stylesheet" href="G:\sr01001\java\TheGameNG\src\main\resources\css\shards.min.css">
 </head>
 <body>
 <div th:switch="${teams}" class="container my-5">
@@ -26,6 +26,10 @@
                         <th>Gold medals</th>
                         <th>Silver medals</th>
                         <th>Bronze medals</th>
+                        <th>Force goal</th>
+                        <th>Force defence</th>
+                        <th>Force demiattacker</th>
+                        <th>Force attacker</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -37,6 +41,10 @@
                         <td th:text="${team.goldMedal}"></td>
                         <td th:text="${team.silverMedal}"></td>
                         <td th:text="${team.bronzeMedal}"></td>
+                        <td th:text="${team.forceGoal}"></td>
+                        <td th:text="${team.forceDef}"></td>
+                        <td th:text="${team.forceDemi}"></td>
+                        <td th:text="${team.forceAtt}"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -54,7 +62,7 @@
             <div>
                 <button type="submit" class="btn btn-primary" value="delete" th:formaction="'/delete'" th:formmethod="get" >Delete data</button>
                 <button type="submit" class="btn btn-primary" value="upload">Upload file</button>
-                <button type="submit" class="btn btn-primary" value="read">Read new data</button>
+                <button type="submit" class="btn btn-primary" value="setRank" th:formaction="'/setrank'" th:formmethod="post">Set rank for all</button>
             </div>
             </div>
         </form>

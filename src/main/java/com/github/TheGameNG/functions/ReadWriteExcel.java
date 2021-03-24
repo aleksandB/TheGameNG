@@ -18,12 +18,13 @@ import java.util.List;
 public class ReadWriteExcel {
 
     private static final Logger log = LoggerFactory.getLogger(ReadWriteExcel.class);
-    private static final String PATH_FILE = "E:\\work\\TheGameNG\\src\\main\\resources\\example\\temp.xlsx";
+    private static final String PATH_FILE = "G:\\sr01001\\java\\TheGameNG\\src\\main\\resources\\example\\teams.xlsx";
 
     public List<Team> ReadExcelFileTeams(){
         List<Team> allTeams = new ArrayList<>();
         try{
-           FileInputStream excelFile = new FileInputStream(new File(PATH_FILE));
+            FileInputStream excelFile = new FileInputStream(new File(PATH_FILE));
+
             XSSFWorkbook workbook = new XSSFWorkbook(excelFile);
             XSSFSheet sheet = workbook.getSheetAt(0);
             XSSFRow row;
